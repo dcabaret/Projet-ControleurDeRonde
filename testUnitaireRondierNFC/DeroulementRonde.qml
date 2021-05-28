@@ -21,6 +21,7 @@ Page {
     property alias batimentPointeau: batimentPointeau
     property alias etagePointeau: etagePointeau
     property alias textFieldTag: textFieldTag
+    property alias connection: connection
 
     title: "Déroulement de la ronde"
 
@@ -249,10 +250,49 @@ Page {
         }
 
         Connections {
+            id: connection
             target: lecteurNFC
             onTagDetecte: {
                 //console.log("Tag : " + tagNFC)
-                textFieldTag.text = tagNFC
+                var tag = tagNFC;
+                //textFieldTag.text = tagNFC
+                //récupérer l'index courrant de l'item
+                var item = listePointeaux.itemAtIndex(listePointeaux.currentIndex);
+                //récupérer le nombre d'item dans la liste
+                var nb = listePointeaux.count;
+                console.log("nombre d'item dans la liste : " + nb);
+                //récupérer l'index courant du pointeau
+                var indexCourant = listePointeaux.currentIndex;
+                //vérifier le tag donné
+                var verif = Fonction.verifierTagPointeauNFC(tag);
+                //si le resultat est correct
+                if(verif === "correct"){
+                    //vérifier si c'est le dernier pointeau de la liste
+                    if(indexCourant === (nb-1)){
+                        //il met le pointeau courant en vert
+                        item.m_couleur = "#00FF00";
+                        //il incrémente l'index courant
+                        listePointeaux.incrementCurrentIndex();
+                    }
+                    else{
+                        bdd.mettreAJourTableAEteEffectueePar();
+                        //il met le pointeau courant en vert
+                        item.m_couleur = "#00FF00";
+                        //il incrémente l'index courant
+                        listePointeaux.incrementCurrentIndex();
+                        //il récupère l'index courrant
+                        item = listePointeaux.itemAtIndex(listePointeaux.currentIndex);
+                        //l'état du pointeau courrant devient bleu
+                        item.m_couleur = "#0000FF";
+                    }
+                }
+                else{
+                    //le pointeau courant reste bleu
+                    item.m_couleur = "#0000FF";
+                    //le mauvais pointeau scanné devient orange
+                    var fauxPointeau = listePointeaux.itemAtIndex(verif);
+                    fauxPointeau.m_couleur = "#FFA500";
+                }
             }
         }
 

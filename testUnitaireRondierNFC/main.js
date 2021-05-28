@@ -106,11 +106,11 @@ function verifierTagPointeau(){
     return resultat;
 }
 
-function verifierTagPointeauNFC(){
+function verifierTagPointeauNFC(_tag){
     var pointeauCourant= deroulementRonde.listePointeaux.currentIndex;
     var listeTag = bdd.obtenirListeTagPointeaux();
     var tagPointeau = listeTag[pointeauCourant];
-    var tagCourant = textFieldTag.text
+    var tagCourant = _tag;
     var resultat;
     console.log("tag courant : " + tagCourant);
     console.log("tag du pointeau : " + tagPointeau);
