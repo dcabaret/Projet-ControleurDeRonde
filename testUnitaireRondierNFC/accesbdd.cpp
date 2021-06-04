@@ -40,7 +40,7 @@ void AccesBdd::connectionBDD()
     //Indiquer l'emplacement de la base de données sur l'odinateur (perso)
     //db.setDatabaseName("C:/Users/soula/Documents/Cours/SNIR2/Projet 2021/Maëva/ControleurDeRondes/BDDs/Rondier/Rondier_BDDRemplie.db");
     //Indiquer l'emplacement de la base de données sur le téléphone
-    db.setDatabaseName("/data/data/org.qtproject.rondier/db/RondierBDDVide.db");
+    db.setDatabaseName("/data/data/org.qtproject.rondier/db/Rondier_BDDRemplie.db");
     //Ouverture de la base de données
     db.open();
     //Vérification de l'ouverture de la base de données
